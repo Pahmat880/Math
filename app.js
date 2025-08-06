@@ -1,16 +1,32 @@
 // app.js
 
+// Fungsi untuk mengupdate jam setiap detik
+function updateClock() {
+    const clockElement = document.getElementById('live-clock');
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const formattedDate = now.toLocaleDateString('id-ID', options);
+    clockElement.textContent = formattedDate;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Fungsi untuk menampilkan tampilan kalkulator
+function showCalculator() {
+    document.getElementById('dashboard-screen').style.display = 'none';
+    document.getElementById('calculator-screen').style.display = 'block';
+}
+
 // Fungsi untuk menghasilkan teks langkah-langkah perhitungan
 function generateCaraPengerjaan(angkaArray) {
-    let caraPengerjaan = '<h2>Cara Pengerjaan</h2>';
+    let caraPengerjaan = '<h2><i class="fas fa-stream"></i> Cara Pengerjaan</h2>';
 
     // --- Rata-rata ---
     const sum = angkaArray.reduce((acc, curr) => acc + curr, 0);
     const unroundedMean = sum / angkaArray.length;
     const roundedMean = unroundedMean.toFixed(2);
-
     caraPengerjaan += `
-        <h3>1. Rata-rata (Mean)</h3>
+        <h3><i class="fas fa-equals"></i> Rata-rata (Mean)</h3>
         <p>Penjumlahan: ${angkaArray.join(' + ')} = ${sum}</p>
         <p>Pembagian: ${sum} / ${angkaArray.length} = ${unroundedMean} (dibulatkan menjadi ${roundedMean})</p>
     `;
@@ -20,7 +36,7 @@ function generateCaraPengerjaan(angkaArray) {
     const mid = Math.floor(sortedArr.length / 2);
     const median = sortedArr.length % 2 === 0 ? (sortedArr[mid - 1] + sortedArr[mid]) / 2 : sortedArr[mid];
     caraPengerjaan += `
-        <h3>2. Median</h3>
+        <h3><i class="fas fa-balance-scale"></i> Median</h3>
         <p>Urutkan data: ${sortedArr.join(', ')}</p>
         <p>Nilai tengah: <strong>${median}</strong></p>
     `;
@@ -48,7 +64,7 @@ function generateCaraPengerjaan(angkaArray) {
         : modus.join(', ');
 
     caraPengerjaan += `
-        <h3>3. Modus</h3>
+        <h3><i class="fas fa-chart-bar"></i> Modus</h3>
         <p>Frekuensi setiap angka:</p>
         <ul>
             ${Object.keys(counts).map(num => `<li>Angka ${num}: ${counts[num]} kali</li>`).join('')}
@@ -72,7 +88,7 @@ async function hitungStatistik() {
         .map(Number);
 
     if (angkaArray.some(isNaN) || angkaArray.length === 0) {
-        hasilDiv.innerHTML = '<p style="color: red;">Mohon masukkan angka yang valid.</p>';
+        hasilDiv.innerHTML = '<p id="error-message"><i class="fas fa-exclamation-triangle"></i> Mohon masukkan angka yang valid.</p>';
         return;
     }
 
@@ -94,17 +110,26 @@ async function hitungStatistik() {
         const modusDisplay = Array.isArray(hasil.mode) ? hasil.mode.join(', ') : hasil.mode;
 
         let hasilAkhir = `
-            <h2>Hasil:</h2>
-            <p>Rata-rata (Mean): <strong>${hasil.mean}</strong></p>
-            <p>Median: <strong>${hasil.median}</strong></p>
-            <p>Modus: <strong>${modusDisplay}</strong></p>
+            <h2><i class="fas fa-check-circle"></i> Hasil Akhir</h2>
+            <div class="result-item">
+                <i class="fas fa-equals icon"></i>
+                <p>Rata-rata (Mean): <strong>${hasil.mean}</strong></p>
+            </div>
+            <div class="result-item">
+                <i class="fas fa-balance-scale icon"></i>
+                <p>Median: <strong>${hasil.median}</strong></p>
+            </div>
+            <div class="result-item">
+                <i class="fas fa-chart-bar icon"></i>
+                <p>Modus: <strong>${modusDisplay}</strong></p>
+            </div>
         `;
         
         const caraPengerjaan = generateCaraPengerjaan(angkaArray);
         hasilDiv.innerHTML = hasilAkhir + caraPengerjaan;
 
     } catch (error) {
-        hasilDiv.innerHTML = '<p style="color: red;">Terjadi kesalahan saat berkomunikasi dengan server.</p>';
+        hasilDiv.innerHTML = '<p id="error-message"><i class="fas fa-exclamation-triangle"></i> Terjadi kesalahan saat berkomunikasi dengan server.</p>';
         console.error('Error:', error);
     }
 }
