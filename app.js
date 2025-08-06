@@ -24,6 +24,12 @@ function showCalculator() {
     document.getElementById('calculator-screen').style.display = 'block';
 }
 
+// Fungsi untuk kembali ke tampilan dashboard
+function showDashboard() {
+    document.getElementById('calculator-screen').style.display = 'none';
+    document.getElementById('dashboard-screen').style.display = 'block';
+}
+
 // Fungsi untuk menghasilkan teks langkah-langkah perhitungan
 function generateCaraPengerjaan(angkaArray) {
     let caraPengerjaan = '<h2><i class="fas fa-stream"></i> Cara Pengerjaan</h2>';

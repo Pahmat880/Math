@@ -40,6 +40,7 @@
             max-width: 700px;
             width: 90%;
             border: 1px solid rgba(100, 255, 218, 0.2);
+            position: relative; /* Diperlukan untuk positioning tombol back */
         }
         h1, h2 {
             color: var(--primary-color);
@@ -198,16 +199,14 @@
             margin-bottom: 10px;
         }
         .live-clock {
-            position: fixed;
-            top: 20px;
-            right: 20px;
             font-size: 1em;
             color: var(--accent-color);
             padding: 8px 15px;
             border-radius: 8px;
             display: flex;
-            align-items: center;
+            justify-content: center;
             gap: 10px;
+            margin-bottom: 20px;
         }
         .live-clock span {
             display: flex;
@@ -227,6 +226,19 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
         }
+        /* Tombol Kembali */
+        #back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: auto;
+            padding: 10px 15px;
+            font-size: 1em;
+        }
+        #back-btn:hover {
+            transform: translateX(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
         
         /* Media Query untuk Layar Kecil */
         @media (max-width: 768px) {
@@ -240,12 +252,9 @@
                 font-size: 1.5em;
             }
             .live-clock {
-                position: static;
-                margin-top: 20px;
-                justify-content: center;
-                background-color: var(--container-color);
-                border-radius: 8px;
-                box-shadow: none;
+                flex-direction: column;
+                gap: 5px;
+                margin-bottom: 15px;
             }
             #dashboard-screen {
                 text-align: left;
@@ -254,18 +263,17 @@
     </style>
 </head>
 <body>
-    <div class="live-clock" id="live-clock">
-        <span id="date-display"><i class="fas fa-calendar-alt"></i></span>
-        <span id="time-display"><i class="fas fa-clock"></i></span>
-    </div>
-
     <div class="container" id="main-container">
         <div id="dashboard-screen">
-            <h1><i class="fas fa-chart-pie"></i> STATISTIKA</h1>
+            <div class="live-clock" id="live-clock">
+                <span id="date-display"><i class="fas fa-calendar-alt"></i></span>
+                <span id="time-display"><i class="fas fa-clock"></i></span>
+            </div>
+            <h1><i class="fas fa-chart-pie"></i> STATISTIKA DATA TUNGGAL</h1>
             <p class="creator-info">Dibuat oleh: <strong style="color:var(--primary-color);">Amat</strong></p>
             
             <div class="formula-list">
-                <h3><i class="fas fa-book"></i> Rumus Dasar Statistika</h3>
+                <h3><i class="fas fa-book"></i> Rumus Dasar</h3>
                 <p><strong>Mean (Rata-rata)</strong>: Jumlah semua nilai dibagi dengan banyaknya data.</p>
                 <p><strong>Median (Nilai Tengah)</strong>: Nilai tengah dari data yang sudah diurutkan dari terkecil ke terbesar.</p>
                 <p><strong>Modus (Nilai Terbanyak)</strong>: Nilai yang paling sering muncul dalam data.</p>
@@ -277,6 +285,9 @@
         </div>
 
         <div id="calculator-screen">
+            <button id="back-btn" onclick="showDashboard()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
             <h1>
                 <i class="fas fa-calculator"></i> Kalkulator Statistik
             </h1>
