@@ -1,6 +1,6 @@
 // api/chat.js
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenAI } = require("@google/genai");
 
 module.exports = async (req, res) => {
     // Pastikan metode POST
@@ -15,25 +15,25 @@ module.exports = async (req, res) => {
             return res.status(500).json({ error: "API key is not set." });
         }
         
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+        const ai = new GoogleGenAI({ apiKey });
 
-        // Ambil prompt dari body request
+        // Perbaikan: Menggunakan models.generateContent dengan sintaks baru
         const { prompt } = req.body;
         if (!prompt) {
             return res.status(400).json({ error: "Prompt is required." });
         }
 
         // Tambahkan instruksi persona "Mat Assistant" ke prompt
-        const chatPrompt = `
-        Anda adalah Mat Assistant, asisten AI yang ramah dan siap membantu. Jawab pertanyaan dengan singkat, jelas, dan selalu gunakan bahasa Indonesia.
-        ---
-        Pertanyaan: ${prompt}
-        `;
-
-        const result = await model.generateContent(chatPrompt);
-        const response = await result.response;
-        const text = response.text();
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: `
+                Anda adalah Mat Assistant, asisten AI yang ramah dan siap membantu. Jawab pertanyaan dengan singkat, jelas, dan selalu gunakan bahasa Indonesia.
+                ---
+                Pertanyaan: ${prompt}
+            `
+        });
+        
+        const text = response.text;
 
         res.status(200).json({ reply: text });
 
