@@ -40,7 +40,7 @@
             max-width: 700px;
             width: 90%;
             border: 1px solid rgba(100, 255, 218, 0.2);
-            position: relative; /* Diperlukan untuk positioning tombol back */
+            position: relative;
         }
         h1, h2 {
             color: var(--primary-color);
@@ -259,6 +259,34 @@
             #dashboard-screen {
                 text-align: left;
             }
+            #back-btn {
+                top: 10px;
+                left: 10px;
+                padding: 8px 12px;
+            }
+        }
+        /* Chat bubble button */
+        .chat-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #64FFDA, #4dd0e1);
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: #121212;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .chat-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
         }
     </style>
 </head>
@@ -269,11 +297,11 @@
                 <span id="date-display"><i class="fas fa-calendar-alt"></i></span>
                 <span id="time-display"><i class="fas fa-clock"></i></span>
             </div>
-            <h1><i class="fas fa-chart-pie"></i> STATISTIKA DATA TUNGGAL</h1>
+            <h1><i class="fas fa-chart-pie"></i> STATISTIKA</h1>
             <p class="creator-info">Dibuat oleh: <strong style="color:var(--primary-color);">Amat</strong></p>
             
             <div class="formula-list">
-                <h3><i class="fas fa-book"></i> Rumus Dasar</h3>
+                <h3><i class="fas fa-book"></i> Rumus Dasar Statistika</h3>
                 <p><strong>Mean (Rata-rata)</strong>: Jumlah semua nilai dibagi dengan banyaknya data.</p>
                 <p><strong>Median (Nilai Tengah)</strong>: Nilai tengah dari data yang sudah diurutkan dari terkecil ke terbesar.</p>
                 <p><strong>Modus (Nilai Terbanyak)</strong>: Nilai yang paling sering muncul dalam data.</p>
@@ -303,6 +331,9 @@
                 </div>
         </div>
     </div>
+    <a href="chat.html" class="chat-bubble">
+        <i class="fas fa-comment-dots"></i>
+    </a>
     <script src="app.js"></script>
 </body>
 </html>

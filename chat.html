@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mat Assistant - AI Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Gaya Khusus Halaman Chat */
+        :root {
+            --bg-color: #0A192F;
+            --container-color: #112240;
+            --primary-color: #64FFDA;
+            --secondary-color: #8892B0;
+            --text-color: #e6f1ff;
+            --accent-color: #FFD662;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .chat-container {
+            background-color: var(--container-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 650px;
+            width: 90%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        .chat-header {
+            background-color: #1a237e;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        .chat-header h1 {
+            color: white;
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .chat-header .fas {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 12px;
+        }
+        .user-message {
+            background-color: #3e4d6e;
+            align-self: flex-end;
+        }
+        .bot-message {
+            background-color: #1a237e;
+            align-self: flex-start;
+        }
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        .chat-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 8px;
+            background-color: #2b2b2b;
+            color: #fff;
+            font-size: 1em;
+        }
+        .chat-input button {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        /* Loader */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 24px;
+            height: 24px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <i class="fas fa-robot"></i>
+            <h1>Mat Assistant</h1>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="bot-message message">Halo! Saya Mat Assistant. Ada yang bisa saya bantu?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Ketik pesan Anda...">
+            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <script src="chat.js"></script>
+</body>
+</html>

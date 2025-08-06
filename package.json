@@ -1,0 +1,12 @@
+{
+  "name": "mat-assistant",
+  "version": "1.0.0",
+  "description": "An AI chat assistant using Gemini API.",
+  "main": "api/chat.js",
+  "scripts": {
+    "start": "node api/chat.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.3.1"
+  }
+}
