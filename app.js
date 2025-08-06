@@ -15,7 +15,6 @@ async function hitungStatistik() {
     }
 
     try {
-        // Mengirim request ke serverless function di folder 'api'
         const response = await fetch('/api/hitung', {
             method: 'POST',
             headers: {
