@@ -6,11 +6,13 @@ function generateCaraPengerjaan(angkaArray) {
 
     // --- Rata-rata ---
     const sum = angkaArray.reduce((acc, curr) => acc + curr, 0);
-    const mean = (sum / angkaArray.length).toFixed(2);
+    const unroundedMean = sum / angkaArray.length;
+    const roundedMean = unroundedMean.toFixed(2);
+
     caraPengerjaan += `
         <h3>1. Rata-rata (Mean)</h3>
         <p>Penjumlahan: ${angkaArray.join(' + ')} = ${sum}</p>
-        <p>Pembagian: ${sum} / ${angkaArray.length} = ${mean}</p>
+        <p>Pembagian: ${sum} / ${angkaArray.length} = ${unroundedMean} (dibulatkan menjadi ${roundedMean})</p>
     `;
 
     // --- Median ---
@@ -62,7 +64,6 @@ async function hitungStatistik() {
     const dataInput = document.getElementById('dataInput').value;
     const hasilDiv = document.getElementById('hasil');
 
-    // Kosongkan hasil dan cara pengerjaan sebelumnya
     hasilDiv.innerHTML = '';
 
     const angkaArray = dataInput
@@ -90,10 +91,8 @@ async function hitungStatistik() {
 
         const hasil = await response.json();
         
-        // Gabungkan array modus menjadi string yang mudah dibaca
         const modusDisplay = Array.isArray(hasil.mode) ? hasil.mode.join(', ') : hasil.mode;
 
-        // Tampilkan hasil akhir
         let hasilAkhir = `
             <h2>Hasil:</h2>
             <p>Rata-rata (Mean): <strong>${hasil.mean}</strong></p>
@@ -101,7 +100,6 @@ async function hitungStatistik() {
             <p>Modus: <strong>${modusDisplay}</strong></p>
         `;
         
-        // Gabungkan dengan cara pengerjaan
         const caraPengerjaan = generateCaraPengerjaan(angkaArray);
         hasilDiv.innerHTML = hasilAkhir + caraPengerjaan;
 
