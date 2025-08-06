@@ -47,11 +47,30 @@ function generateCaraPengerjaan(angkaArray) {
     // --- Median ---
     const sortedArr = [...angkaArray].sort((a, b) => a - b);
     const mid = Math.floor(sortedArr.length / 2);
-    const median = sortedArr.length % 2 === 0 ? (sortedArr[mid - 1] + sortedArr[mid]) / 2 : sortedArr[mid];
+    let medianText = '';
+    const n = sortedArr.length;
+
+    if (n % 2 === 0) { // Data genap
+        const val1 = sortedArr[mid - 1];
+        const val2 = sortedArr[mid];
+        const median = (val1 + val2) / 2;
+        medianText = `
+            <p>Banyaknya data (${n}) adalah genap, maka nilai median adalah rata-rata dari dua nilai tengah:</p>
+            <p>(${val1} + ${val2}) / 2 = <strong>${median}</strong></p>
+        `;
+    } else { // Data ganjil
+        const median = sortedArr[mid];
+        medianText = `
+            <p>Banyaknya data (${n}) adalah ganjil, maka nilai median adalah nilai yang berada di posisi tengah, yaitu angka ke-${mid + 1} dari data yang sudah diurutkan.</p>
+            <p>Nilai tersebut adalah: <strong>${median}</strong></p>
+        `;
+    }
+
     caraPengerjaan += `
         <h3><i class="fas fa-balance-scale"></i> Median</h3>
-        <p>Urutkan data: ${sortedArr.join(', ')}</p>
-        <p>Nilai tengah: <strong>${median}</strong></p>
+        <p>1. Urutkan data dari yang terkecil ke terbesar: ${sortedArr.join(', ')}</p>
+        <p>2. Tentukan nilai tengahnya:</p>
+        ${medianText}
     `;
 
     // --- Modus ---
