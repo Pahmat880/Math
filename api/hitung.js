@@ -17,21 +17,32 @@ function hitungMedian(arr) {
     }
 }
 
-// Fungsi untuk menghitung Modus
+// Fungsi untuk menghitung Modus (sudah diperbaiki)
 function hitungModus(arr) {
     const counts = {};
     arr.forEach(num => {
         counts[num] = (counts[num] || 0) + 1;
     });
 
-    let modus = null;
     let maxCount = 0;
     for (const num in counts) {
         if (counts[num] > maxCount) {
             maxCount = counts[num];
-            modus = Number(num);
         }
     }
+
+    const modus = [];
+    for (const num in counts) {
+        if (counts[num] === maxCount) {
+            modus.push(Number(num));
+        }
+    }
+    
+    // Jika semua angka muncul dengan frekuensi yang sama, maka tidak ada modus
+    if (modus.length === Object.keys(counts).length && modus.length > 1) {
+      return null;
+    }
+
     return modus;
 }
 
