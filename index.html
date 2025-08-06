@@ -201,13 +201,21 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            font-size: 1.2em;
+            font-size: 1em;
             color: var(--accent-color);
-            background-color: var(--container-color);
             padding: 8px 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .live-clock span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .live-clock .fas {
+            color: var(--primary-color);
         }
         #mulai-btn {
             background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
@@ -219,10 +227,37 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
         }
+        
+        /* Media Query untuk Layar Kecil */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 30px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .live-clock {
+                position: static;
+                margin-top: 20px;
+                justify-content: center;
+                background-color: var(--container-color);
+                border-radius: 8px;
+                box-shadow: none;
+            }
+            #dashboard-screen {
+                text-align: left;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="live-clock" id="live-clock"></div>
+    <div class="live-clock" id="live-clock">
+        <span id="date-display"><i class="fas fa-calendar-alt"></i></span>
+        <span id="time-display"><i class="fas fa-clock"></i></span>
+    </div>
 
     <div class="container" id="main-container">
         <div id="dashboard-screen">

@@ -2,11 +2,18 @@
 
 // Fungsi untuk mengupdate jam setiap detik
 function updateClock() {
-    const clockElement = document.getElementById('live-clock');
+    const dateElement = document.getElementById('date-display');
+    const timeElement = document.getElementById('time-display');
     const now = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    const formattedDate = now.toLocaleDateString('id-ID', options);
-    clockElement.textContent = formattedDate;
+    
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    
+    const formattedDate = now.toLocaleDateString('id-ID', dateOptions);
+    const formattedTime = now.toLocaleTimeString('id-ID', timeOptions);
+    
+    dateElement.innerHTML = `<i class="fas fa-calendar-alt"></i> ${formattedDate}`;
+    timeElement.innerHTML = `<i class="fas fa-clock"></i> ${formattedTime}`;
 }
 setInterval(updateClock, 1000);
 updateClock();
